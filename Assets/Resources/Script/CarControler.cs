@@ -53,7 +53,7 @@ public class CarControler : MonoBehaviour
         Vector3 newWorldPos = cam.ScreenToWorldPoint(screenPos);
         curPos = new Vector3(newWorldPos.x, transform.localPosition.y, newWorldPos.z);
         dist = curPos - startPos;
-        if(dist.magnitude > 1f){
+        if(dist.magnitude > 2f){
             Debug.Log("Drag");
 
             _touchStatus = TouchStatus.Drag;
