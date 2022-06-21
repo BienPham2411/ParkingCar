@@ -36,8 +36,10 @@ public class CarControler : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        if(_touchStatus != TouchStatus.None)
+        if(_touchStatus == TouchStatus.Drag)
             return;
+        if(_touchStatus == TouchStatus.Enter)
+            Init();
         Vector3 screenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraZDist);
         Vector3 newWorldPos = cam.ScreenToWorldPoint(screenPos);
         startPos = new Vector3(newWorldPos.x, transform.localPosition.y, newWorldPos.z);
@@ -75,20 +77,19 @@ public class CarControler : MonoBehaviour
                 transform.localPosition += new Vector3(0, 0, speed * dirZ) * Time.deltaTime;
         }
     }
- 
- //eny
+    
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Car" && _touchStatus == TouchStatus.Drag){
             if(!this.priority && !other.GetComponent<CarControler>().priority){
                 Debug.Log("Car collide");
-                Init();
+                _touchStatus = TouchStatus.Enter;
                 StartCoroutine(moveBackward());
                 // rb.velocity = Vector3.zero;
                 // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }else
             if(!this.priority && other.GetComponent<CarControler>().priority){
                 Debug.Log("Car collide");
-                Init();
+                _touchStatus = TouchStatus.Enter;
                 StartCoroutine(moveBackward());
                 WaitAndGo();
             }
@@ -96,7 +97,7 @@ public class CarControler : MonoBehaviour
 
         if(other.tag == "Obstacle"){
             Debug.Log("Obstacle");
-            Init();
+            _touchStatus = TouchStatus.Enter;
             StartCoroutine(moveBackward());
             // rb.velocity = Vector3.zero;
             // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -105,11 +106,15 @@ public class CarControler : MonoBehaviour
         if(other.tag == "Grandma"){
             Debug.Log("Hit people");
             other.GetComponent<GrandmaMove>().setMove(false, false);
-            Init();
+            _touchStatus = TouchStatus.Enter;
             GameManager.instance.setIsPlay(false);
         }
     }
 
+    private void OnMouseUp() {
+        if(_touchStatus != TouchStatus.Drag)
+            Init();
+    }
     public void WaitAndGo(){
         StartCoroutine(WaitForCar());
     }
