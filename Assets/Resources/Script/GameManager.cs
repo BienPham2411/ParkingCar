@@ -23,8 +23,10 @@ public class GameManager : MonoBehaviour
             Destroy(curLevel);
         isPlay = true;
         level = DataGame.instance.GetCurrentLevel();
-        if(level >= maxLevel)
-            level = Random.Range(0, maxLevel);
+        if(level >= maxLevel){
+            setLevel(Random.Range(0, maxLevel));
+            DataGame.instance.SetCurrentLevel(level);
+        }
         GameObject clone = Resources.Load<GameObject>("Levels/Level " + level);
         curLevel = Instantiate(clone, transform.position, clone.transform.rotation);
         LevelControl.instance.setLevel(level);
