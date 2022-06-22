@@ -10,7 +10,6 @@ public class CarControler : MonoBehaviour
     private Vector3 posM;
     private Camera cam;
     private float cameraZDist;
-    private float turnSpeed = 90f;
     private Vector3 curPos;
     private Vector3 startPos;
     private Vector3 dist;
@@ -95,7 +94,7 @@ public class CarControler : MonoBehaviour
             }
         }
 
-        if(other.tag == "Obstacle"){
+        if(other.tag == "Obstacle" && !isTurn){
             Debug.Log("Obstacle");
             _touchStatus = TouchStatus.Enter;
             StartCoroutine(moveBackward());
@@ -103,11 +102,27 @@ public class CarControler : MonoBehaviour
             // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
-        if(other.tag == "Grandma"){
+        if(other.tag == "Grandma" && _touchStatus == TouchStatus.Drag){
             Debug.Log("Hit people");
-            other.GetComponent<GrandmaMove>().setMove(false, false);
+            other.GetComponent<GrandmaMove>().setSpeed(0);
             _touchStatus = TouchStatus.Enter;
             GameManager.instance.setIsPlay(false);
+            other.transform.GetComponent<GrandmaMove>().setEnd();
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.AddExplosionForce(300f, other.transform.position, 5f, 10f);
+        }else
+        if(other.tag == "Grandma"){
+            GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
+            grandma.setStop();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Grandma"){
+            GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
+            grandma.setMove();
         }
     }
 
@@ -124,14 +139,6 @@ public class CarControler : MonoBehaviour
         _touchStatus = TouchStatus.Drag;
     }
 
-    IEnumerator RotateMe(Vector3 byAngles, float inTime) {    
-        Quaternion fromAngle = transform.rotation;
-        var toAngle = Quaternion.Euler(transform.eulerAngles + byAngles);
-        for(var t = 0f; t < 1; t += Time.deltaTime/inTime) {
-            transform.rotation = Quaternion.Slerp(fromAngle, toAngle, t);
-            yield return null;
-        }
-    }
 
     IEnumerator moveBackward(){
         float moveTime = 0;
@@ -159,11 +166,13 @@ public class CarControler : MonoBehaviour
         float angle = transform.localEulerAngles.y;
         // Debug.Log(angle);
         if(checkAngle(angle)){
-            transform.RotateAround(transform.position, Vector3.up, 90);  
+            // transform.RotateAround(transform.position, Vector3.up, 90);  
             // StartCoroutine(RotateMe(Vector3.up * 90, 0.2f));
+            StartCoroutine(RotateCar(90f));
         }else{
-            transform.RotateAround(transform.position, Vector3.up, -90);
+            // transform.RotateAround(transform.position, Vector3.up, -90);
             // StartCoroutine(RotateMe(Vector3.up * -90, 0.2f));
+            StartCoroutine(RotateCar(-90f));
             
         }
         if(moveX)
@@ -176,6 +185,18 @@ public class CarControler : MonoBehaviour
             moveZ = true;
         SetDir();
         SetTurn(true);
+    }
+
+    IEnumerator RotateCar(float deg){
+        float curDeg = 0;
+        float time = 0.2f;
+        float timeScale = time / Time.deltaTime;
+        while(curDeg < Mathf.Abs(deg)){
+            curDeg += Mathf.Abs(deg)/timeScale;
+            transform.RotateAround(transform.position, Vector3.up, deg / timeScale);
+            time -= timeScale;
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     public void SetTurn(bool _isTurn){

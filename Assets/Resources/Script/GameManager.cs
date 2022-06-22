@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +10,7 @@ public class GameManager : MonoBehaviour
     private int countCars;
     private Vector2 curPOs;
     private GameObject curLevel;
+    private int maxLevel = 2;
     private int level;
     private bool isPlay;
     private void Awake() {
@@ -22,9 +22,14 @@ public class GameManager : MonoBehaviour
         if(curLevel != null)
             Destroy(curLevel);
         isPlay = true;
-        level = PlayerPrefs.GetInt("Level", 0);
+        level = DataGame.instance.GetCurrentLevel();
+        if(level >= maxLevel)
+            level = Random.Range(0, maxLevel);
         GameObject clone = Resources.Load<GameObject>("Levels/Level " + level);
         curLevel = Instantiate(clone, transform.position, clone.transform.rotation);
+        LevelControl.instance.setLevel(level);
+        LevelControl.instance.setCurLevel(curLevel);
+        LevelControl.instance.setUpLevel();
         cars = curLevel.transform.Find("Cars").gameObject;
         totalCars = cars.transform.childCount;
         countCars = 0;
@@ -43,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     public void WinGame(){
         Debug.Log("Win");
+        setLevel(level + 1);
+        DataGame.instance.SetCurrentLevel(level);
     }
 
     public bool getIsPlay(){
@@ -51,5 +58,13 @@ public class GameManager : MonoBehaviour
 
     public void setIsPlay(bool _isPlay){
         this.isPlay = _isPlay;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    private void setLevel(int _level){
+        this.level = _level;
     }
 }
