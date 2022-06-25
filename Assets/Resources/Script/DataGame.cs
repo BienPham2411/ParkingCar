@@ -10,6 +10,14 @@ public class DataGame : MonoBehaviour
         instance = this;
     }
 
+    public void SetCurrentCoin(int coins){
+        PlayerPrefs.SetInt("COIN", coins);
+    }
+
+    public int GetCurrenCoin(){
+        return PlayerPrefs.GetInt("COIN", 0);
+    }
+
     public void SetCurrentLevel(int level){
         PlayerPrefs.SetInt("LEVEL", level);
     }

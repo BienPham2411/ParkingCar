@@ -10,6 +10,7 @@ public class RoadControl : MonoBehaviour
         car = other.GetComponentInParent<CarControler>();
         if(other.tag == "Car Center"){
             // Debug.Log("Turn");
+            car.addCarCoin();
             car.TurnAround();
             if(isTurn){
                 Debug.Log("Turn again");

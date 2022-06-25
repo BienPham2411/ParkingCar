@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
     private int countCars;
     private Vector2 curPOs;
     private GameObject curLevel;
-    private int maxLevel = 2;
+    private int maxLevel = 3;
     private int level;
     private bool isPlay;
-    private void Awake() {
+    private void Start() {
         instance = this;
         InitLevel();
     }
@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Win");
         setLevel(level + 1);
         DataGame.instance.SetCurrentLevel(level);
+        CanvasManager.instance.OpenWinGame(true);
     }
 
     public bool getIsPlay(){
@@ -68,5 +69,11 @@ public class GameManager : MonoBehaviour
 
     private void setLevel(int _level){
         this.level = _level;
+    }
+
+    public void addCoin(int _coin){
+        int coins = DataGame.instance.GetCurrenCoin();
+        DataGame.instance.SetCurrentCoin(coins + _coin);
+        CanvasManager.instance.SetTxtCoin(DataGame.instance.GetCurrenCoin());
     }
 }

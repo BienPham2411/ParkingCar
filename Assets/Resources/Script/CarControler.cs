@@ -16,6 +16,7 @@ public class CarControler : MonoBehaviour
     private int dirX, dirZ;
     private Rigidbody rb;
     public bool isMove;
+    private bool isAddCoin;
     private enum TouchStatus
     {
         None,
@@ -31,6 +32,7 @@ public class CarControler : MonoBehaviour
         cameraZDist = cam.WorldToScreenPoint(transform.position).z;
         Init();
         priority = false;
+        isAddCoin = false;
         rb = transform.GetComponent<Rigidbody>();
     }
 
@@ -110,6 +112,7 @@ public class CarControler : MonoBehaviour
             other.transform.GetComponent<GrandmaMove>().setEnd();
             rb.isKinematic = false;
             rb.useGravity = true;
+            GetComponent<BoxCollider>().isTrigger = false;
             rb.AddExplosionForce(300f, other.transform.position, 5f, 10f);
         }else
         if(other.tag == "Grandma"){
@@ -143,7 +146,7 @@ public class CarControler : MonoBehaviour
     IEnumerator moveBackward(){
         float moveTime = 0;
         float newSpeed = -speed / 8;
-        while(moveTime < 0.25f){
+        while(moveTime < 0.2f){
             moveTime += Time.deltaTime;
             if(moveX)
                 transform.localPosition += new Vector3(newSpeed * dirX, 0, 0) * Time.deltaTime;
@@ -244,6 +247,12 @@ public class CarControler : MonoBehaviour
         }
         Debug.Log("dirX: " + dirX + " dirZ: " + dirZ + " angle: " + angle);
         return false;   
+    }
+
+    public void addCarCoin(){
+        if(!isAddCoin)    
+            GameManager.instance.addCoin(Random.Range(2, 4));
+        isAddCoin = true;
     }
 }   
 
