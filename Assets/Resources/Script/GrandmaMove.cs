@@ -97,7 +97,7 @@ public class GrandmaMove : MonoBehaviour
 
     IEnumerator RotateMe(float deg){
         float curDeg = 0;
-        float time = 0.2f;
+        float time = 0.1f;
         float timeScale = time / Time.deltaTime;
         while(curDeg < Mathf.Abs(deg)){
             curDeg += Mathf.Abs(deg)/timeScale;

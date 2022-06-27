@@ -29,7 +29,7 @@ public class LevelControl : MonoBehaviour
     }
 
     IEnumerator level1(){
-        grandma = curLevel.transform.Find("Human/Grandma").GetComponent<GrandmaMove>();
+        grandma = curLevel.transform.Find("Human").GetChild(0).GetComponent<GrandmaMove>();
         while(!grandma.isEnd()){
             grandma.moveX(3.73f, false);
             yield return new WaitUntil(() => grandma.isStay());

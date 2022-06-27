@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 920781841838302383}
   - component: {fileID: 3596536486514667926}
   - component: {fileID: 2499537147760146607}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Icosphere.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6754326814544494867}
   - component: {fileID: 5410198870919994424}
   - component: {fileID: 6153120847520534505}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Icosphere.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7595993877265120155}
   - component: {fileID: 7698731120060088853}
   - component: {fileID: 680349576157572084}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Grandma 2
   m_TagString: Grandma
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 17679088598456345}
   - component: {fileID: 196536730813738202}
   - component: {fileID: 9207887043448684107}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Icosphere.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}

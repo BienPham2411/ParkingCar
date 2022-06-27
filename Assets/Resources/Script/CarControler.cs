@@ -110,10 +110,10 @@ public class CarControler : MonoBehaviour
             _touchStatus = TouchStatus.Enter;
             GameManager.instance.setIsPlay(false);
             other.transform.GetComponent<GrandmaMove>().setEnd();
+            GameManager.instance.SetCarsCollide();
             rb.isKinematic = false;
             rb.useGravity = true;
-            GetComponent<BoxCollider>().isTrigger = false;
-            rb.AddExplosionForce(300f, other.transform.position, 5f, 10f);
+            rb.AddExplosionForce(200f, other.transform.position + new Vector3(0, 0f, 0), 2f, 50f);
         }else
         if(other.tag == "Grandma"){
             GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
@@ -178,6 +178,12 @@ public class CarControler : MonoBehaviour
             StartCoroutine(RotateCar(-90f));
             
         }
+    }
+
+    public IEnumerator RotateCar(float deg){
+        float curDeg = 0;
+        float time = 0.2f;
+        float timeScale = time / Time.deltaTime;
         if(moveX)
             moveX = false;
         else    
@@ -188,12 +194,6 @@ public class CarControler : MonoBehaviour
             moveZ = true;
         SetDir();
         SetTurn(true);
-    }
-
-    IEnumerator RotateCar(float deg){
-        float curDeg = 0;
-        float time = 0.2f;
-        float timeScale = time / Time.deltaTime;
         while(curDeg < Mathf.Abs(deg)){
             curDeg += Mathf.Abs(deg)/timeScale;
             transform.RotateAround(transform.position, Vector3.up, deg / timeScale);
@@ -254,5 +254,6 @@ public class CarControler : MonoBehaviour
             GameManager.instance.addCoin(Random.Range(2, 4));
         isAddCoin = true;
     }
+
 }   
 

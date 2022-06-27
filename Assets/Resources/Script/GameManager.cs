@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private int countCars;
     private Vector2 curPOs;
     private GameObject curLevel;
-    private int maxLevel = 3;
+    private int maxLevel = 4;
     private int level;
     private bool isPlay;
     private void Start() {
@@ -75,5 +75,14 @@ public class GameManager : MonoBehaviour
         int coins = DataGame.instance.GetCurrenCoin();
         DataGame.instance.SetCurrentCoin(coins + _coin);
         CanvasManager.instance.SetTxtCoin(DataGame.instance.GetCurrenCoin());
+    }
+
+    public void SetCarsCollide(){
+        for(int i = 0; i < cars.transform.childCount; i ++){
+            GameObject curCar;
+            curCar = cars.transform.GetChild(i).gameObject;
+            curCar.GetComponent<Collider>().isTrigger = false;
+            curCar.transform.Find("Center").gameObject.SetActive(false);
+        }
     }
 }

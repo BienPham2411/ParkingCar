@@ -14,8 +14,7 @@ public class RoadControl : MonoBehaviour
             car.TurnAround();
             if(isTurn){
                 Debug.Log("Turn again");
-            car.SetTurn(false);
-            car.TurnAround();
+                StartCoroutine(car.RotateCar(90));
             }
             if(isOut){
                 Debug.Log("Car Out");

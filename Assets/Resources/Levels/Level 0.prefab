@@ -241,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car5
       objectReference: {fileID: 0}
+    - target: {fileID: 7457224243049965182, guid: 41d3f10e5836c714a8433e27a8b2574f, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 41d3f10e5836c714a8433e27a8b2574f, type: 3}
@@ -335,7 +339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -566079153270544171, guid: e434e3298608f094ea08b77e40f5cd4b, type: 3}
       propertyPath: m_Constraints
-      value: 124
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4483612686536027682, guid: e434e3298608f094ea08b77e40f5cd4b, type: 3}
       propertyPath: m_RootOrder
@@ -605,6 +609,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7760521113933024345}
     m_Modifications:
+    - target: {fileID: -7502530019698599984, guid: 51dff09d7b3c34b40a377f891821fa50, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1363920724365089634, guid: 51dff09d7b3c34b40a377f891821fa50, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -850,6 +858,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1314296901062687026, guid: fe0a2df53e7169d46bffae223db4cc5b, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314296901062687026, guid: fe0a2df53e7169d46bffae223db4cc5b, type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
@@ -881,6 +893,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7760521113933024345}
     m_Modifications:
+    - target: {fileID: -1288934216070486464, guid: c4c489645b478be4fab6f2ece263ee76, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4103184526585283248, guid: c4c489645b478be4fab6f2ece263ee76, type: 3}
       propertyPath: m_Name
       value: Car6
@@ -945,6 +961,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7760521113933024345}
     m_Modifications:
+    - target: {fileID: -6501599551602114637, guid: 1c37b29762a7a554891523e49a875855, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4345901350194693738, guid: 1c37b29762a7a554891523e49a875855, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1091,7 +1111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3389783042457459052, guid: b537c80c67821464cbbfddf54948ed60, type: 3}
       propertyPath: m_Constraints
-      value: 118
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3915180236472412340, guid: b537c80c67821464cbbfddf54948ed60, type: 3}
       propertyPath: m_RootOrder
@@ -1157,6 +1177,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7760521113933024345}
     m_Modifications:
+    - target: {fileID: 181762344063463610, guid: 3409125f6a0541f48b551a36b01e81ae, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2369676327273205477, guid: 3409125f6a0541f48b551a36b01e81ae, type: 3}
       propertyPath: m_Name
       value: Car1
@@ -1863,7 +1887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1222955184126071655, guid: 572cb0cd8086b5345a8c8f0b9fde1e60, type: 3}
       propertyPath: m_Constraints
-      value: 124
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2610072323547499645, guid: 572cb0cd8086b5345a8c8f0b9fde1e60, type: 3}
       propertyPath: m_RootOrder
