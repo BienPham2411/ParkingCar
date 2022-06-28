@@ -8,8 +8,9 @@ TagManager:
   - Car
   - Car Center
   - Obstacle
-  - Grandma
   - Barrier
+  - Man
+  - Grandma
   layers:
   - Default
   - TransparentFX

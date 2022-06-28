@@ -85,4 +85,28 @@ public class GameManager : MonoBehaviour
             curCar.transform.Find("Center").gameObject.SetActive(false);
         }
     }
+
+    public void SetCurrentCar(int id){
+        DataGame.instance.SetDataCarBuy(id);
+        DataGame.instance.SetCurrentCar(id);
+        // if(levelGame != null) levelGame.SetSpriteCar(DataGame.instance.GetCurrentCar());
+    }
+
+    public void SetCurrentMan(int id){
+        DataGame.instance.SetDataManBuy(id);
+        DataGame.instance.SetCurrentMan(id);
+        // if(levelGame != null) levelGame.SetSpriteMan(DataGame.instance.GetCurrentMan());
+    }
+
+    public void SetCurrentTrail(int id){
+        DataGame.instance.SetDataTrailBuy(id);
+        DataGame.instance.SetCurrentTrail(id);
+        // if(levelGame != null) levelGame.SetTrailCar(DataGame.instance.GetCurrentTrail());
+    }
+
+    public void SetCurrentEnvi(int id){
+        DataGame.instance.SetDataEnviBuy(id);
+        DataGame.instance.SetCurrentEnvi(id);
+        // if(levelGame != null) levelGame.SetTrailCar(DataGame.instance.GetCurrentTrail());
+    }
 }

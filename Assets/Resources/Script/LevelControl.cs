@@ -6,7 +6,7 @@ public class LevelControl : MonoBehaviour
 {
     public static LevelControl instance;
     private int level = 0;
-    private GrandmaMove grandma;
+    private ManMove man;
     private GameObject curLevel;
     // Start is called before the first frame update
 
@@ -29,16 +29,16 @@ public class LevelControl : MonoBehaviour
     }
 
     IEnumerator level1(){
-        grandma = curLevel.transform.Find("Human").GetChild(0).GetComponent<GrandmaMove>();
-        while(!grandma.isEnd()){
-            grandma.moveX(3.73f, false);
-            yield return new WaitUntil(() => grandma.isStay());
-            grandma.moveZ(5f, false);
-            yield return new WaitUntil(() => grandma.isStay());
-            grandma.moveZ(5f, true);
-            yield return new WaitUntil(() => grandma.isStay());
-            grandma.moveX(3.73f, true);
-            yield return new WaitUntil(() => grandma.isStay());
+        man = curLevel.transform.Find("Human").GetChild(0).GetComponent<ManMove>();
+        while(!man.isEnd()){
+            man.moveX(3.73f, false);
+            yield return new WaitUntil(() => man.isStay());
+            man.moveZ(5f, false);
+            yield return new WaitUntil(() => man.isStay());
+            man.moveZ(5f, true);
+            yield return new WaitUntil(() => man.isStay());
+            man.moveX(3.73f, true);
+            yield return new WaitUntil(() => man.isStay());
         }
     }
 }

@@ -34,6 +34,7 @@ public class CarControler : MonoBehaviour
         priority = false;
         isAddCoin = false;
         rb = transform.GetComponent<Rigidbody>();
+
     }
 
     private void OnMouseDown() {
@@ -104,30 +105,29 @@ public class CarControler : MonoBehaviour
             // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
-        if(other.tag == "Grandma" && _touchStatus == TouchStatus.Drag){
+        if(other.tag == "Man" && _touchStatus == TouchStatus.Drag && !isTurn){
             Debug.Log("Hit people");
             _touchStatus = TouchStatus.Enter;
             GameManager.instance.setIsPlay(false);
-            other.transform.GetComponent<GrandmaMove>().setEnd();
+            other.transform.GetComponent<ManMove>().setEnd();
             GameManager.instance.SetCarsCollide();
             rb.isKinematic = false;
             rb.useGravity = true;
             rb.AddExplosionForce(300f, other.transform.position + new Vector3(0, 0f, 0), 2f, 50f);
-            // rb.AddExplosionForce(0f, other.transform.position + new Vector3(0, 0f, 0), 1f);
         }else
-        if(other.tag == "Grandma" && _touchStatus != TouchStatus.Enter){
+        if(other.tag == "Man" && _touchStatus != TouchStatus.Enter){
             Debug.Log("Collide again");
-            GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
-            grandma.setStop();
+            ManMove man = other.transform.GetComponent<ManMove>();
+            man.setStop();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Grandma"){
-            GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
-            if(grandma.isStop())
-                grandma.setMove();
+        if(other.tag == "Man"){
+            ManMove man = other.transform.GetComponent<ManMove>();
+            if(man.isStop())
+                man.setMove();
         }
     }
 
@@ -257,5 +257,12 @@ public class CarControler : MonoBehaviour
         isAddCoin = true;
     }
 
+    public int sizeCar(){
+        if(GetComponent<BoxCollider>().size == new Vector3(1, 1, 1.7f))
+            return 0;
+        if(GetComponent<BoxCollider>().size == new Vector3(1, 1, 2.2f))
+            return 1;
+        return 2;
+    }
 }   
 
