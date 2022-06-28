@@ -49,13 +49,13 @@ public class CarControler : MonoBehaviour
     private void OnMouseDrag() {
         if(_touchStatus == TouchStatus.Drag || _touchStatus == TouchStatus.Enter)
             return;
-        Debug.Log("Drag");
+        // Debug.Log("Drag");
         Vector3 screenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraZDist);
         Vector3 newWorldPos = cam.ScreenToWorldPoint(screenPos);
         curPos = new Vector3(newWorldPos.x, transform.localPosition.y, newWorldPos.z);
         dist = curPos - startPos;
         if(dist.magnitude > 2f){
-            Debug.Log("Drag");
+            // Debug.Log("Drag");
 
             _touchStatus = TouchStatus.Drag;
             if(dist.x < 0)
@@ -82,14 +82,14 @@ public class CarControler : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Car" && _touchStatus == TouchStatus.Drag){
             if(!this.priority && !other.GetComponent<CarControler>().priority){
-                Debug.Log("Car collide");
+                // Debug.Log("Car collide");
                 _touchStatus = TouchStatus.Enter;
                 StartCoroutine(moveBackward());
                 // rb.velocity = Vector3.zero;
                 // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }else
             if(!this.priority && other.GetComponent<CarControler>().priority){
-                Debug.Log("Car collide");
+                // Debug.Log("Car collide");
                 _touchStatus = TouchStatus.Enter;
                 StartCoroutine(moveBackward());
                 WaitAndGo();
@@ -97,7 +97,7 @@ public class CarControler : MonoBehaviour
         }
 
         if(other.tag == "Obstacle" && !isTurn){
-            Debug.Log("Obstacle");
+            // Debug.Log("Obstacle");
             _touchStatus = TouchStatus.Enter;
             StartCoroutine(moveBackward());
             // rb.velocity = Vector3.zero;
@@ -106,16 +106,17 @@ public class CarControler : MonoBehaviour
 
         if(other.tag == "Grandma" && _touchStatus == TouchStatus.Drag){
             Debug.Log("Hit people");
-            other.GetComponent<GrandmaMove>().setSpeed(0);
             _touchStatus = TouchStatus.Enter;
             GameManager.instance.setIsPlay(false);
             other.transform.GetComponent<GrandmaMove>().setEnd();
             GameManager.instance.SetCarsCollide();
             rb.isKinematic = false;
             rb.useGravity = true;
-            rb.AddExplosionForce(200f, other.transform.position + new Vector3(0, 0f, 0), 2f, 50f);
+            rb.AddExplosionForce(300f, other.transform.position + new Vector3(0, 0f, 0), 2f, 50f);
+            // rb.AddExplosionForce(0f, other.transform.position + new Vector3(0, 0f, 0), 1f);
         }else
-        if(other.tag == "Grandma"){
+        if(other.tag == "Grandma" && _touchStatus != TouchStatus.Enter){
+            Debug.Log("Collide again");
             GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
             grandma.setStop();
         }
@@ -125,7 +126,8 @@ public class CarControler : MonoBehaviour
     {
         if(other.tag == "Grandma"){
             GrandmaMove grandma = other.transform.GetComponent<GrandmaMove>();
-            grandma.setMove();
+            if(grandma.isStop())
+                grandma.setMove();
         }
     }
 
@@ -245,7 +247,7 @@ public class CarControler : MonoBehaviour
         if(dirX < 0 && dirZ > 0 && angle > 85 && angle < 95){
             return false;
         }
-        Debug.Log("dirX: " + dirX + " dirZ: " + dirZ + " angle: " + angle);
+        // Debug.Log("dirX: " + dirX + " dirZ: " + dirZ + " angle: " + angle);
         return false;   
     }
 

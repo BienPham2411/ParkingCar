@@ -7,6 +7,7 @@ public class GrandmaMove : MonoBehaviour
     public float speed = 5f;
     private float distance;
     private Vector3 startPos;
+    public Animator anim;
     private enum MoveState{
         Move,
         Stay,
@@ -17,6 +18,7 @@ public class GrandmaMove : MonoBehaviour
     private void OnEnable() {
         startPos = transform.localPosition;    
         speed = 5f;
+        anim.enabled = true;
     }
 
     public void setSpeed(float _speed){
@@ -47,19 +49,28 @@ public class GrandmaMove : MonoBehaviour
         Debug.Log("Move X");
         Vector3 startPos = transform.localPosition;
         float curDist = 0;
+        float time = 0;
         while(curDist < dist){
-            if(_moveState == MoveState.Stay)
-                _moveState = MoveState.Move;
+            if(isEnd())
+                break;
+            time += Time.deltaTime;
+            if(isStay())
+                setMove();
             yield return new WaitWhile(() => isStop());
             curDist = (transform.localPosition - startPos).magnitude;
+            if(time >= 0.5f){
+                yield return new WaitForSeconds(0.5f);
+                time = 0;
+            }
             if(!isReverse){
                 transform.localPosition += new Vector3(speed , 0, 0) * Time.deltaTime;
             }else{
                 transform.localPosition += new Vector3(-speed , 0, 0) * Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
-            _moveState = MoveState.Stay;
         }
+        if(isMove())
+            setStay();
     }
 
     IEnumerator moveDirZ(float dist, bool isReverse){
@@ -78,13 +89,19 @@ public class GrandmaMove : MonoBehaviour
         Debug.Log("Move Z");
         Vector3 startPos = transform.localPosition;
         float curDist = 0;
-        if(_moveState == MoveState.Stay)
-            _moveState = MoveState.Move;
+        float time = 0;
         while(curDist < dist){
-            curDist = (transform.localPosition - startPos).magnitude;
-            if(_moveState == MoveState.Stay)
-                _moveState = MoveState.Move;
+            if(isEnd())
+                break;
+            time += Time.deltaTime;
+            if(isStay())
+                setMove();
             yield return new WaitWhile(() => isStop());
+            curDist = (transform.localPosition - startPos).magnitude;
+            if(time >= 0.5f){
+                yield return new WaitForSeconds(0.5f);
+                time = 0;
+            }
             if(!isReverse){
                 transform.localPosition += new Vector3(0 , 0, speed) * Time.deltaTime;
             }else{
@@ -92,7 +109,8 @@ public class GrandmaMove : MonoBehaviour
             }
             yield return new WaitForFixedUpdate();
         }
-        _moveState = MoveState.Stay;
+        if(isMove())
+            setStay();
     }
 
     IEnumerator RotateMe(float deg){
@@ -108,7 +126,9 @@ public class GrandmaMove : MonoBehaviour
     }
 
     public void setStay(){
+        Debug.Log("Stay");
         _moveState = MoveState.Stay;
+        anim.enabled = false;
     }
     public bool isStay(){
         return _moveState == MoveState.Stay;
@@ -119,7 +139,9 @@ public class GrandmaMove : MonoBehaviour
     }
 
     public void setMove(){
+        Debug.Log(("Move"));
         _moveState = MoveState.Move;
+        anim.enabled = true;
     }
 
     public bool isEnd(){
@@ -127,11 +149,15 @@ public class GrandmaMove : MonoBehaviour
     }
 
     public void setEnd(){
+        Debug.Log("End");
         _moveState = MoveState.End;
+        anim.enabled = false;
     }
 
     public void setStop(){
+        Debug.Log(("Stop"));
         _moveState = MoveState.Stop;
+        anim.enabled = false;
     }
 
     public bool isStop(){
