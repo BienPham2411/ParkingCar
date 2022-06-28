@@ -264,5 +264,34 @@ public class CarControler : MonoBehaviour
             return 1;
         return 2;
     }
+
+    public void InitCar(){
+        int size = sizeCar();
+        Debug.Log(size);
+        GameObject body;
+        GameObject bodyOri;
+        switch(size){
+            case 0:
+                bodyOri = Resources.Load<GameObject>("Vehicles/Short/" + Random.Range(0, 7) + "/Car 0").transform.Find("Body").gameObject;
+                body = Instantiate(bodyOri, transform.position, transform.rotation);
+                break;
+            case 1:
+                bodyOri = Resources.Load<GameObject>("Vehicles/Medium/" + Random.Range(0, 7) + "/Car 0").transform.Find("Body").gameObject;
+                body = Instantiate(bodyOri, transform.position, transform.rotation);
+                break;
+            case 2:
+                bodyOri = Resources.Load<GameObject>("Vehicles/Long/" + Random.Range(0, 7) + "/Car 0").transform.Find("Body").gameObject;
+                body = Instantiate(bodyOri, transform.position, transform.rotation);
+                break;
+            default:
+                body = null;
+                break;
+        }
+        Transform curBody = transform.Find("Body");
+        if( curBody != null){
+            Destroy(curBody.gameObject);
+        }
+        body.transform.SetParent(transform);
+    }
 }   
 

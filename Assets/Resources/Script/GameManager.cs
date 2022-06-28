@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour
         cars = curLevel.transform.Find("Cars").gameObject;
         totalCars = cars.transform.childCount;
         countCars = 0;
+        for (int i = 0; i < cars.transform.childCount; i++)
+        {
+            cars.transform.GetChild(i).GetComponent<CarControler>().InitCar();
+        }
     }
 
     public void CarOut(){

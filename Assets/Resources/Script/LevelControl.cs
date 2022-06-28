@@ -18,6 +18,9 @@ public class LevelControl : MonoBehaviour
         if(level == 1){
             StartCoroutine(level1());
         }
+        if(level == 2){
+            StartCoroutine(level2());
+        }
     }
 
     public void setLevel(int _level){
@@ -38,6 +41,20 @@ public class LevelControl : MonoBehaviour
             man.moveZ(5f, true);
             yield return new WaitUntil(() => man.isStay());
             man.moveX(3.73f, true);
+            yield return new WaitUntil(() => man.isStay());
+        }
+    }
+
+    IEnumerator level2(){
+        man = curLevel.transform.Find("Human").GetChild(0).GetComponent<ManMove>();
+        while(!man.isEnd()){
+            man.moveX(1.7f, false);
+            yield return new WaitUntil(() => man.isStay());
+            man.moveZ(2.4f, true);
+            yield return new WaitUntil(() => man.isStay());
+            man.moveZ(2.4f, false);
+            yield return new WaitUntil(() => man.isStay());
+            man.moveX(1.73f, true);
             yield return new WaitUntil(() => man.isStay());
         }
     }
