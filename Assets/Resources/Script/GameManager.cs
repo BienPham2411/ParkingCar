@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private int countCars;
     private Vector2 curPOs;
     private GameObject curLevel;
-    private int maxLevel = 4;
+    private int maxLevel = 6;
     private int level;
     private bool isPlay;
     private void Start() {
@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour
         cars = curLevel.transform.Find("Cars").gameObject;
         totalCars = cars.transform.childCount;
         countCars = 0;
-        for (int i = 0; i < cars.transform.childCount; i++)
-        {
-            cars.transform.GetChild(i).GetComponent<CarControler>().InitCar();
-        }
+        // for (int i = 0; i < cars.transform.childCount; i++)
+        // {
+        //     cars.transform.GetChild(i).GetComponent<CarControler>().InitCar();
+        // }
     }
 
     public void CarOut(){

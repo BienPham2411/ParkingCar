@@ -31,6 +31,7 @@ public class CarControler : MonoBehaviour
         cam = Camera.main;
         cameraZDist = cam.WorldToScreenPoint(transform.position).z;
         Init();
+        InitCar();
         priority = false;
         isAddCoin = false;
         rb = transform.GetComponent<Rigidbody>();
@@ -267,31 +268,29 @@ public class CarControler : MonoBehaviour
 
     public void InitCar(){
         int size = sizeCar();
-        Debug.Log(size);
+        Transform curBody = transform.Find("Body");
+        if( curBody != null){
+            Destroy(curBody.gameObject);
+        }
         GameObject body;
         GameObject bodyOri;
         switch(size){
             case 0:
                 bodyOri = Resources.Load<GameObject>("Vehicles/Short/" + Random.Range(0, 7) + "/Car 0").transform.Find("Body").gameObject;
-                body = Instantiate(bodyOri, transform.position, transform.rotation);
+                body = Instantiate(bodyOri, transform.position, transform.rotation, transform);
                 break;
             case 1:
                 bodyOri = Resources.Load<GameObject>("Vehicles/Medium/" + Random.Range(0, 7) + "/Car 0").transform.Find("Body").gameObject;
-                body = Instantiate(bodyOri, transform.position, transform.rotation);
+                body = Instantiate(bodyOri, transform.position, transform.rotation, transform);
                 break;
             case 2:
                 bodyOri = Resources.Load<GameObject>("Vehicles/Long/" + Random.Range(0, 7) + "/Car 0").transform.Find("Body").gameObject;
-                body = Instantiate(bodyOri, transform.position, transform.rotation);
+                body = Instantiate(bodyOri, transform.position, transform.rotation, transform);
                 break;
             default:
                 body = null;
                 break;
         }
-        Transform curBody = transform.Find("Body");
-        if( curBody != null){
-            Destroy(curBody.gameObject);
-        }
-        body.transform.SetParent(transform);
     }
 }   
 

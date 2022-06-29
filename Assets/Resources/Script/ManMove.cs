@@ -17,7 +17,8 @@ public class ManMove : MonoBehaviour
     MoveState _moveState = MoveState.Stay;
     private void OnEnable() {
         startPos = transform.localPosition;    
-        speed = 5f;
+        speed = 3f;
+        Init();
         anim.enabled = true;
     }
 
@@ -168,5 +169,14 @@ public class ManMove : MonoBehaviour
 
     public bool isStop(){
         return _moveState == MoveState.Stop;
+    }
+
+    public void Init(){
+        Transform oldBody = transform.Find("Body");
+        if(oldBody != null)
+            Destroy(oldBody.gameObject);
+        GameObject man = Resources.Load<GameObject>("Human/Man " + Random.Range(0, 8)).transform.Find("Body").gameObject;
+        GameObject body = Instantiate(man, transform.position, transform.rotation, transform);
+        anim = body.transform.Find("Anim").GetComponent<Animator>();
     }
 }
