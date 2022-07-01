@@ -87,6 +87,9 @@ public class CarControler : MonoBehaviour
                 // Debug.Log("Car collide");
                 _touchStatus = TouchStatus.Enter;
                 StartCoroutine(moveBackward());
+                if(!Input.GetMouseButton(0)){
+                    Init();
+                }
                 // rb.velocity = Vector3.zero;
                 // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }else
@@ -102,6 +105,9 @@ public class CarControler : MonoBehaviour
             // Debug.Log("Obstacle");
             _touchStatus = TouchStatus.Enter;
             StartCoroutine(moveBackward());
+            if(!Input.GetMouseButton(0)){
+                Init();
+            }
             // rb.velocity = Vector3.zero;
             // other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
